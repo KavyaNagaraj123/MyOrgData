@@ -1,0 +1,45 @@
+<apex:page standardcontroller="Fulfillment__c" extensions="Fulfillment_Controller" sidebar="true" showHeader="true" id="pg">
+    <apex:form id="form1">
+        <apex:outputPanel id="updatedthisec">
+	   <apex:variable value="{!0}" var="rowNum"/>
+        <apex:pageBlock >
+
+            <apex:pageBlockSection columns="1" title="FulFillment records" id="accountHead">
+                
+                <apex:pageBlockTable value="{!reWrapperList}" var="wrap" border="20px" frame="border" cellspacing="6px"  cellpadding="50px">
+                    <apex:column headerValue="Fulfillment name" width="10%" style="border:1px solid black">
+                        <apex:outputfield value="{!wrap.fulfillment.Name}" >
+                        <apex:inlineEditSupport event="ondblClick" />
+                        </apex:outputfield>
+                    </apex:column>
+                    <apex:column headerValue="No of resource" width="10%"  style="border:1px solid black">
+                        <apex:outputfield value="{!wrap.fulfillment.No_Of_Resource__c}">
+                         <apex:inlineEditSupport event="ondblClick" />
+						</apex:outputfield>
+                    </apex:column>
+                    <apex:column headerValue="list" width="15%"  style="border:0.3px solid SILVER; bgcolor:red " >
+                        <apex:outputfield value="{!wrap.fulfillment.ResourceList__c}" >
+                            <apex:inlineEditSupport event="ondblClick" />
+                        </apex:outputfield>
+                    </apex:column>
+                      <apex:column headerValue="save" width="2%">
+                        <apex:commandButton value="Save" action="{!save}"/>
+                    </apex:column>
+                     <apex:column headerValue="delete" width="5%">
+                         
+                        <apex:commandButton value="remove" action="{!remove}" immediate="true" reRender="updatedthisec"> 
+                         <apex:param name="eventid" value="{!rowNum}" assignTo="{!rowToRemove}"/>
+                         
+                          <apex:param name="eventid1" value="{!wrap.fulfillment.Id}" assignTo="{!DeleteTheRow}"/>
+                         </apex:commandButton>
+                           <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                    </apex:column>
+                </apex:pageBlockTable>
+                <apex:commandButton value="Add More" action="{!addNewRow}" rerender="updatedthisec" Status="status" immediate="true" />
+            </apex:pageBlockSection>
+            <apex:outputPanel dir="block" id="button">
+            </apex:outputPanel>
+        </apex:pageBlock>
+            </apex:outputPanel>
+    </apex:form>
+</apex:page>
